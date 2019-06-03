@@ -1,0 +1,65 @@
+{
+  "name": "node-js-getting-started",
+  "version": "0.3.0",
+  "description": "A sample Node.js app using Express 4",
+  "engines": {
+    "node": "10.x"
+  },
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "node test.js"
+  },
+  "dependencies": {
+    "add": "^2.0.6",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-runtime": "^6.26.0",
+    "bcrypt": "^3.0.3",
+    "bluebird": "^3.5.0",
+    "body-parser": "^1.19.0",
+    "chalk": "^2.4.2",
+    "copy-webpack-plugin": "^4.0.1",
+    "cryptr": "^4.0.2",
+    "dotenv": "^4.0.0",
+    "express": "^4.17.0",
+    "express-jwt": "^5.3.1",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.4",
+    "morgan": "^1.9.1",
+    "pg": "^7.7.1",
+    "react-native-keyboard-accessory": "^0.1.9",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.2",
+    "sequelize": "^4.33.1",
+    "sequelize-cli": "^5.4.0",
+    "webpack": "^3.6.0",
+    "yarn": "^1.16.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.2.6",
+    "eslint": "^4.3.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-airbnb-base": "^11.3.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.4.0",
+    "koa-webpack": "^1.0.0",
+    "nodemon": "^1.11.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/heroku/node-js-getting-started"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ],
+  "license": "MIT"
+}

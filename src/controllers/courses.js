@@ -2,7 +2,7 @@ const db = require('../models');
 const Sequelize = require('sequelize');
 
 // TODO: import it from external source
-const statsRepr = ['popularity', 'demand'];
+const statsRepr = ['popularity', 'demand', 'difficulty', 'interesting'];
 
 const getCourse = async ({ courseId }) => {
   const course = db.Course.findOne({
@@ -75,6 +75,20 @@ const getStats = async ({ courseId }) => {
       },
     },
     demand: {
+      votes: 0,
+      value: 0,
+      meta: {
+        repr: 1,
+      },
+    },
+    difficulty: {
+      votes: 0,
+      value: 0,
+      meta: {
+        repr: 2,
+      },
+    },
+    interesting: {
       votes: 0,
       value: 0,
       meta: {

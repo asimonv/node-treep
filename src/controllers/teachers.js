@@ -37,14 +37,19 @@ const sendStat = async values => upsert(values);
 
 const getComments = async ({ teacherId }) => {
   const teacher = await getTeacher({ teacherId });
-  return teacher.getComments();
+  return teacher.getComments({
+    order: [['createdAt', 'DESC']],
+  });
 };
 
 const postComment = async (data) => {
   const { teacherId, text, sub: userId } = data;
   const teacher = await getTeacher({ teacherId });
   const comment = await db.Comment.create({ text, userId });
-  return teacher.addComment(comment);
+  await teacher.addComment(comment);
+  const commentInfo = await comment.getInfo();
+  const response = { ...comment.toJSON(), info: { ...commentInfo.toJSON() } };
+  return response;
 };
 
 const getStats = async ({ teacherId }) => {

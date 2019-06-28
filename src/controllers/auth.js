@@ -47,7 +47,9 @@ const authUser = async ({ email, password }) => {
     };
     throw notLoggedMessage;
   } else {
+    console.log(chalk.bgMagenta(username));
     const hashedUsername = await bcrypt.hash(username, 10);
+    console.log(chalk.bgYellow(hashedUsername));
     const token = jwt.sign({ sub: hashedUsername }, process.env.JWT_SECRET);
     console.log(chalk.bgGreen(token));
     return token;

@@ -28,6 +28,11 @@ module.exports = function defineComment(sequelize, DataTypes) {
   //  https://medium.com/@Abazhenov/polymorphic-associations-in-postgres-sequelize-9f3d6c3857fb
   Comment.associate = function associate(models) {
     // associations can be defined here
+    Comment.hasOne(models.CommentLink, {
+      foreignKey: 'CommentId',
+      sourceKey: 'id',
+      as: 'info',
+    });
     const targetModels = [models.Teacher, models.Course];
     targetModels.forEach((Model) => {
       Model.belongsToMany(this, {

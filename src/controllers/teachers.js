@@ -1,5 +1,6 @@
-const Sequelize = require('sequelize');
 const db = require('../models');
+const _ = require('lodash');
+const average = require('../helpers/stats');
 
 const statsRepr = ['popularity', 'knowledge', 'clarity', 'demand', 'disposition'];
 
@@ -54,67 +55,30 @@ const postComment = async (data) => {
 
 const getStats = async ({ teacherId }) => {
   const teacher = await getTeacher({ teacherId });
-  const votes = await teacher.getVotes({
-    group: [
-      'Vote.voteType',
-      'VoteLink.table',
-      'VoteLink.foreign_key',
-      'VoteLink.createdAt',
-      'VoteLink.updatedAt',
-      'VoteLink.VoteId',
-    ],
-    attributes: [
-      'voteType',
-      [Sequelize.fn('AVG', Sequelize.col('Vote.value')), 'avg'],
-      [Sequelize.fn('COUNT', Sequelize.col('Vote.id')), 'count'],
-    ],
-  });
+  const votes = await teacher.getVotes();
 
-  const response = {
-    popularity: {
-      votes: 0,
-      value: 0,
-      meta: {
-        repr: 0,
-      },
+  const response = statsRepr.map((x, idx) => ({
+    meta: {
+      repr: idx,
     },
-    knowledge: {
-      votes: 0,
-      value: 0,
-      meta: {
-        repr: 1,
-      },
-    },
-    clarity: {
-      votes: 0,
-      value: 0,
-      meta: {
-        repr: 2,
-      },
-    },
-    demand: {
-      votes: 0,
-      value: 0,
-      meta: {
-        repr: 3,
-      },
-    },
-    disposition: {
-      votes: 0,
-      value: 0,
-      meta: {
-        repr: 4,
-      },
-    },
-  };
+    voteType: statsRepr[idx],
+    votes: 0,
+    value: 0,
+  }));
 
-  votes.forEach((v) => {
-    const stat = v.toJSON();
-    const responseStat = response[statsRepr[stat.voteType]];
-    responseStat.votes = Number(stat.count);
-    responseStat.value = Number(stat.avg).toFixed(1);
-  });
-  return response;
+  const groupedVotes = _.chain(votes.map(x => x.toJSON()))
+    .groupBy('voteType')
+    .map((v, k) => ({
+      meta: {
+        repr: parseInt(k, 10),
+      },
+      voteType: statsRepr[parseInt(k, 10)],
+      votes: v.length,
+      value: average(v.map(x => x.value)),
+    }))
+    .value();
+
+  return _.merge(response, groupedVotes);
 };
 
 module.exports = {

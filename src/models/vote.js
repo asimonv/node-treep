@@ -20,6 +20,7 @@ module.exports = function defineVote(sequelize, DataTypes) {
       foreignKey: 'VoteId',
       sourceKey: 'id',
       as: 'info',
+      onDelete: 'cascade',
     });
 
     const targetModels = [models.Teacher, models.Course];

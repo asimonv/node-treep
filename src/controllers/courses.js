@@ -74,7 +74,9 @@ const getStats = async ({ courseId }) => {
     }))
     .value();
 
-  return _.merge(response, groupedVotes);
+  const mergedVotes = _.merge(response, groupedVotes);
+  console.log(mergedVotes);
+  return mergedVotes;
 };
 
 module.exports = {

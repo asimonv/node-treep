@@ -21,6 +21,7 @@ module.exports = function defineVote(sequelize, DataTypes) {
       sourceKey: 'id',
       as: 'info',
       onDelete: 'cascade',
+      hooks: true,
     });
 
     const targetModels = [models.Teacher, models.Course];

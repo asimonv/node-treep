@@ -1,11 +1,6 @@
 module.exports = function defineTeacher(sequelize, DataTypes) {
   const Teacher = sequelize.define('Teacher', {
     name: DataTypes.STRING,
-    popularity: DataTypes.INTEGER,
-    clarity: DataTypes.FLOAT,
-    knowledge: DataTypes.FLOAT,
-    demand: DataTypes.FLOAT,
-    disposition: DataTypes.FLOAT,
     url: DataTypes.STRING,
   });
 
@@ -16,13 +11,6 @@ module.exports = function defineTeacher(sequelize, DataTypes) {
 
   Teacher.prototype.toJSON = function toJSON() {
     const values = Object.assign({}, this.get());
-    values.stats = {
-      popularity: this.popularity,
-      clarity: this.clarity,
-      knowledge: this.knowledge,
-      demand: this.demand,
-      disposition: this.disposition,
-    };
     return values;
   };
 

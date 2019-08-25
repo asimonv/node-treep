@@ -78,7 +78,8 @@ const getStats = async ({ teacherId }) => {
     }))
     .value();
 
-  return _.merge(response, groupedVotes);
+  const mergedVotes = _.merge(response, groupedVotes);
+  console.log(mergedVotes);
 };
 
 module.exports = {

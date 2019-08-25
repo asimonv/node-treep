@@ -39,14 +39,19 @@ const sendStat = async values => upsert(values);
 
 const getComments = async ({ courseId }) => {
   const course = await getCourse({ courseId });
-  return course.getComments();
+  return course.getComments({
+    order: [['createdAt', 'DESC']],
+  });
 };
 
 const postComment = async (data) => {
   const { courseId, text, sub: userId } = data;
   const course = await getCourse({ courseId });
   const comment = await db.Comment.create({ text, userId });
-  return course.addComment(comment);
+  await course.addComment(comment);
+  const commentInfo = await comment.getInfo();
+  const response = { ...comment.toJSON(), info: { ...commentInfo.toJSON() } };
+  return response;
 };
 
 const getStats = async ({ courseId }) => {
@@ -74,9 +79,8 @@ const getStats = async ({ courseId }) => {
     }))
     .value();
 
-  const mergedVotes = _.merge(response, groupedVotes);
-  console.log(mergedVotes);
-  return mergedVotes;
+  const mergedVotes = _.unionBy(groupedVotes, response, 'voteType');
+  return _.orderBy(mergedVotes, [x => x.meta.repr]);
 };
 
 module.exports = {

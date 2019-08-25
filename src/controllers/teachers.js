@@ -78,8 +78,8 @@ const getStats = async ({ teacherId }) => {
     }))
     .value();
 
-  const mergedVotes = _.merge(response, groupedVotes);
-  console.log(mergedVotes);
+  const mergedVotes = _.unionBy(groupedVotes, response, 'voteType');
+  return _.orderBy(mergedVotes, [x => x.meta.repr]);
 };
 
 module.exports = {

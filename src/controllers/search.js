@@ -1,7 +1,8 @@
 const db = require('../models');
+const _ = require('lodash');
 
 const search = async (q) => {
-  const courses = await db.Course.findAll({
+  let courses = await db.Course.findAll({
     where: {
       $or: [
         {
@@ -23,6 +24,13 @@ const search = async (q) => {
     },
     limit: 10,
   });
+
+  courses = _.chain(courses.map(x => x.toJSON()))
+    .map(x => ({
+      ...x,
+      name: `${x.courseNumber} - ${x.name}`,
+    }))
+    .value();
 
   const teachers = await db.Teacher.findAll({
     where: {

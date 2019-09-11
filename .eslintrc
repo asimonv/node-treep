@@ -1,7 +1,10 @@
 {
   "extends": "airbnb",
   "env": {
-      "browser": true,
+    "browser": true
   },
   "parser": "babel-eslint",
+  "rules": {
+    "no-unused-vars": ["error", { "argsIgnorePattern": "next" }]
+  }
 }

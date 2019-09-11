@@ -1,10 +1,11 @@
 require('dotenv').config();
 const expressJwt = require('express-jwt');
+const Boom = require('@hapi/boom');
 
 async function isRevoked(req, payload, done) {
   // revoke token if user no longer exists
   if (!payload.sub) {
-    return done(null, true);
+    return done(Boom.unauthorized('no token'));
   }
 
   return done();

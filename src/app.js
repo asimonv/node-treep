@@ -1,12 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const morgan = require('morgan');
-const chalk = require('chalk');
 
 const routes = require('./routes');
 const jwt = require('./helpers/jwt');
 const errorLogger = require('./helpers/error-logger');
 const errorHandler = require('./helpers/error-handler');
+const requestLogger = require('./helpers/request-logger');
 
 const app = express();
 
@@ -17,15 +16,10 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 // log requests
-app.use(morgan('combined'));
+app.use(requestLogger);
 
 // use JWT auth to secure the api
 app.use(jwt());
-
-app.use((req, res, next) => {
-  console.log(chalk.bgMagenta(JSON.stringify(req.user)));
-  next();
-});
 
 // Routing middleware
 app.use('/api', routes);

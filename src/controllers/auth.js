@@ -1,14 +1,16 @@
+/* eslint no-console: ["error", { allow: ["log"] }] */
+
 require('dotenv').config();
 
 const jwt = require('jsonwebtoken');
 const request = require('request-promise').defaults({ jar: true });
-const bcrypt = require('bcrypt');
 const chalk = require('chalk');
+const Boom = require('@hapi/boom');
 
-const authUser = async ({ email, password }) => {
-  const username = email.split('@')[0];
+const authUser = async ({ username, password }) => {
+  const cleanedUsername = username.split('@')[0].trim();
   const form = {
-    login: username,
+    login: cleanedUsername,
     passwd: password,
     sw: '',
     sh: '',
@@ -23,39 +25,42 @@ const authUser = async ({ email, password }) => {
 
   const res = await request.post(options);
 
-  const cookie = res.headers['set-cookie']; // .replace("; path=/", "");
-  const isValid = cookie && cookie[0].indexOf('SIDING_SESSID') > -1;
+  const cookie = res.headers['content-length']; // .replace("; path=/", "");
+  const isValid = cookie === '3552';
   if (!isValid) {
-    const notValidMessage = {
-      error: 'Request not valid',
-    };
-    throw notValidMessage;
+    throw Boom.unauthorized('Wrong email-password combination');
   }
 
-  const authOptions = {
-    uri: 'https://intrawww.ing.puc.cl/siding',
+  // const authOptions = {
+  //   uri: 'https://intrawww.ing.puc.cl/siding',
+  //   resolveWithFullResponse: true,
+  // };
+  //
+  // const auth = await request.get(authOptions);
+
+  // const isLogged = auth.body.indexOf('passwd') === -1;
+  //
+  // if (!isLogged) {
+  //   throw Boom.unauthorized('Wrong email-password combination');
+  // }
+  console.log(chalk.bgMagenta(username));
+  const token = jwt.sign({ sub: cleanedUsername }, process.env.JWT_SECRET);
+  console.log(chalk.bgGreen(token));
+  return token;
+};
+
+const logoutUser = async () => {
+  const options = {
     resolveWithFullResponse: true,
+    uri: 'https://intrawww.ing.puc.cl/siding/logout.phtml',
   };
 
-  const auth = await request.get(authOptions);
-
-  const isLogged = auth.body.indexOf('passwd') === -1;
-
-  if (!isLogged) {
-    const notLoggedMessage = {
-      error: 'Wrong email-password combination',
-    };
-    throw notLoggedMessage;
-  } else {
-    console.log(chalk.bgMagenta(username));
-    const hashedUsername = await bcrypt.hash(username, 10);
-    console.log(chalk.bgYellow(hashedUsername));
-    const token = jwt.sign({ sub: hashedUsername }, process.env.JWT_SECRET);
-    console.log(chalk.bgGreen(token));
-    return token;
-  }
+  const res = await request.get(options);
+  console.log(chalk.bgGreen(res));
+  return res;
 };
 
 module.exports = {
   authUser,
+  logoutUser,
 };

@@ -12,4 +12,12 @@ router.put('/', async (req, res, next) => {
   }
 });
 
+router.delete('/', async (req, res, next) => {
+  try {
+    const authRes = await authService.logoutUser();
+    res.json(authRes);
+  } catch (e) {
+    next(e);
+  }
+});
 module.exports = router;

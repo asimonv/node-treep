@@ -1,6 +1,7 @@
 const db = require('../models');
 const _ = require('lodash');
 const average = require('../helpers/stats');
+const getRandomEmoji = require('../helpers/emoji');
 
 const statsRepr = ['popularity', 'knowledge', 'clarity', 'demand', 'disposition'];
 
@@ -12,7 +13,7 @@ const getTeacher = async ({ teacherId }) => {
 };
 
 const upsert = async (values) => {
-  const { value, action, ...withoutValue } = values;
+  const { action, ...withoutValue } = values;
   const { teacherId, userId, voteType } = withoutValue;
   const teacher = await getTeacher({ teacherId });
   const checkVote = await teacher.getVotes({
@@ -38,9 +39,19 @@ const sendStat = async values => upsert(values);
 
 const getComments = async ({ teacherId }) => {
   const teacher = await getTeacher({ teacherId });
-  return teacher.getComments({
+  let comments = await teacher.getComments({
     order: [['createdAt', 'DESC']],
   });
+
+  //  LOL
+  comments = _.chain(comments.map(x => x.toJSON()))
+    .map(x => ({
+      ...x,
+      userId: `${getRandomEmoji()}${getRandomEmoji()}${getRandomEmoji()}${getRandomEmoji()}`,
+    }))
+    .value();
+
+  return comments;
 };
 
 const postComment = async (data) => {
@@ -49,7 +60,11 @@ const postComment = async (data) => {
   const comment = await db.Comment.create({ text, userId });
   await teacher.addComment(comment);
   const commentInfo = await comment.getInfo();
-  const response = { ...comment.toJSON(), info: { ...commentInfo.toJSON() } };
+  const response = {
+    ...comment.toJSON(),
+    info: { ...commentInfo.toJSON() },
+    userId: `${getRandomEmoji()}${getRandomEmoji()}${getRandomEmoji()}${getRandomEmoji()}`,
+  };
   return response;
 };
 

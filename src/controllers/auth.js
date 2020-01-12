@@ -1,34 +1,34 @@
 /* eslint no-console: ["error", { allow: ["log"] }] */
 
-require('dotenv').config();
+require("dotenv").config();
 
-const jwt = require('jsonwebtoken');
-const request = require('request-promise').defaults({ jar: true });
-const chalk = require('chalk');
-const Boom = require('@hapi/boom');
+const jwt = require("jsonwebtoken");
+const request = require("request-promise").defaults({ jar: true });
+const chalk = require("chalk");
+const Boom = require("@hapi/boom");
 
 const authUser = async ({ username, password }) => {
-  const cleanedUsername = username.split('@')[0].trim();
+  const cleanedUsername = username.split("@")[0].trim();
   const form = {
     login: cleanedUsername,
     passwd: password,
-    sw: '',
-    sh: '',
-    cd: '',
+    sw: "",
+    sh: "",
+    cd: ""
   };
 
   const options = {
     resolveWithFullResponse: true,
-    uri: 'https://intrawww.ing.puc.cl/siding/index.phtml',
-    form,
+    uri: "https://intrawww.ing.puc.cl/siding/index.phtml",
+    form
   };
 
   const res = await request.post(options);
 
-  const cookie = res.headers['content-length']; // .replace("; path=/", "");
-  const isValid = cookie === '3552';
+  const cookie = res.headers["content-length"]; // .replace("; path=/", "");
+  const isValid = cookie === "3563";
   if (!isValid) {
-    throw Boom.unauthorized('Wrong email-password combination');
+    throw Boom.unauthorized("Wrong email-password combination");
   }
 
   // const authOptions = {
@@ -52,7 +52,7 @@ const authUser = async ({ username, password }) => {
 const logoutUser = async () => {
   const options = {
     resolveWithFullResponse: true,
-    uri: 'https://intrawww.ing.puc.cl/siding/logout.phtml',
+    uri: "https://intrawww.ing.puc.cl/siding/logout.phtml"
   };
 
   const res = await request.get(options);
@@ -62,5 +62,5 @@ const logoutUser = async () => {
 
 module.exports = {
   authUser,
-  logoutUser,
+  logoutUser
 };

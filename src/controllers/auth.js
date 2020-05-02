@@ -14,19 +14,19 @@ const authUser = async ({ username, password }) => {
     passwd: password,
     sw: "",
     sh: "",
-    cd: ""
+    cd: "",
   };
 
   const options = {
     resolveWithFullResponse: true,
     uri: "https://intrawww.ing.puc.cl/siding/index.phtml",
-    form
+    form,
   };
 
   const res = await request.post(options);
 
   const cookie = res.headers["content-length"]; // .replace("; path=/", "");
-  const isValid = cookie === "3563";
+  const isValid = cookie === "3419";
   if (!isValid) {
     throw Boom.unauthorized("Wrong email-password combination");
   }
@@ -52,7 +52,7 @@ const authUser = async ({ username, password }) => {
 const logoutUser = async () => {
   const options = {
     resolveWithFullResponse: true,
-    uri: "https://intrawww.ing.puc.cl/siding/logout.phtml"
+    uri: "https://intrawww.ing.puc.cl/siding/logout.phtml",
   };
 
   const res = await request.get(options);
@@ -62,5 +62,5 @@ const logoutUser = async () => {
 
 module.exports = {
   authUser,
-  logoutUser
+  logoutUser,
 };

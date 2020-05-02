@@ -2,7 +2,7 @@
 
 module.exports = function defineComment(sequelize, DataTypes) {
   const Comment = sequelize.define(
-    'Comment',
+    "Comment",
     {
       id: {
         allowNull: false,
@@ -21,22 +21,26 @@ module.exports = function defineComment(sequelize, DataTypes) {
     },
     {
       timestamps: true,
-    },
+    }
   );
 
   //  taken from here:
   //  https://medium.com/@Abazhenov/polymorphic-associations-in-postgres-sequelize-9f3d6c3857fb
   Comment.associate = function associate(models) {
     // associations can be defined here
+    Comment.hasMany(models.Report, {
+      foreignKey: "CommentId",
+      foreignKey: "id",
+    });
     Comment.hasOne(models.CommentLink, {
-      foreignKey: 'CommentId',
-      sourceKey: 'id',
-      as: 'info',
+      foreignKey: "CommentId",
+      sourceKey: "id",
+      as: "info",
     });
     const targetModels = [models.Teacher, models.Course];
-    targetModels.forEach((Model) => {
+    targetModels.forEach(Model => {
       Model.belongsToMany(this, {
-        foreignKey: 'foreign_key',
+        foreignKey: "foreign_key",
         constraints: false,
         through: {
           model: models.CommentLink,
@@ -48,7 +52,7 @@ module.exports = function defineComment(sequelize, DataTypes) {
       });
 
       this.belongsToMany(Model, {
-        foreign_key: 'CommentId',
+        foreign_key: "CommentId",
         through: {
           model: models.CommentLink,
           unique: false,

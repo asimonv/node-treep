@@ -17,8 +17,6 @@ const authUser = async ({ username, password }) => {
     cd: "",
   };
 
-  console.log(form);
-
   const options = {
     resolveWithFullResponse: true,
     uri: "https://intrawww.ing.puc.cl/siding/index.phtml",

@@ -17,6 +17,8 @@ const authUser = async ({ username, password }) => {
     cd: "",
   };
 
+  console.log(form);
+
   const options = {
     resolveWithFullResponse: true,
     uri: "https://intrawww.ing.puc.cl/siding/index.phtml",
@@ -27,8 +29,6 @@ const authUser = async ({ username, password }) => {
 
   const cookie = res.headers["content-length"]; // .replace("; path=/", "");
   const isValid = cookie === "3419";
-
-  console.log(`cookie: ${cookie}`);
 
   if (!isValid) {
     throw Boom.unauthorized("Wrong email-password combination");

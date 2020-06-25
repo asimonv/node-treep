@@ -15,10 +15,7 @@ const getStats = async () => [
     subtitle: 'Based on a certain factor.',
     url: 'teachers',
     id: 'top-teachers',
-    description:
-      "There's no much to say. Treep calculates which teacher is better based
-      on his/her/etc popularity, knowledge and disposition which results in a
-      certain factor. The higher, the better!\n\nHere are the results:",
+    description: "There's no much to say. Treep calculates which teacher is better based on his/her/etc popularity, knowledge and disposition which results in a certain factor. The higher, the better!\n\nHere are the results:",
   },
   {
     image: 'https://assets-ouch.icons8.com/preview/695/d251cbc9-cf3f-496c-a115-d6e8b8909345.png',

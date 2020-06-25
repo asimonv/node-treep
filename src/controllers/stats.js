@@ -35,7 +35,7 @@ const getStats = async () => [
   // },
     {
       statType: 1,
-      title: 'More stats soon...',
+      title: 'More stats coming soon...',
     },
 ];
 

@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   const CommentLink = sequelize.define(
-    'CommentLink',
+    "CommentLink",
     {
       table: {
         type: DataTypes.STRING,

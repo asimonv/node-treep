@@ -1,9 +1,9 @@
-const express = require('express');
+const express = require("express");
 
 const router = express.Router({ mergeParams: true });
-const authService = require('../controllers/auth');
+const authService = require("../controllers/auth");
 
-router.put('/', async (req, res, next) => {
+router.put("/", async (req, res, next) => {
   try {
     const authRes = await authService.authUser(req.body);
     res.json(authRes);
@@ -12,7 +12,7 @@ router.put('/', async (req, res, next) => {
   }
 });
 
-router.delete('/', async (req, res, next) => {
+router.delete("/", async (req, res, next) => {
   try {
     const authRes = await authService.logoutUser();
     res.json(authRes);

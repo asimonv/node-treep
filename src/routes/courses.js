@@ -1,9 +1,9 @@
-const express = require('express');
+const express = require("express");
 
 const router = express.Router({ mergeParams: true });
-const coursesService = require('../controllers/courses');
+const coursesService = require("../controllers/courses");
 
-router.get('/:courseId/comments', async (req, res, next) => {
+router.get("/:courseId/comments", async (req, res, next) => {
   try {
     const stats = await coursesService.getComments(req.params);
     res.json(stats);
@@ -12,7 +12,7 @@ router.get('/:courseId/comments', async (req, res, next) => {
   }
 });
 
-router.put('/:courseId/comments', async (req, res, next) => {
+router.put("/:courseId/comments", async (req, res, next) => {
   try {
     const comment = await coursesService.postComment({ ...req.params, ...req.body, ...req.user });
     res.json(comment);
@@ -21,7 +21,7 @@ router.put('/:courseId/comments', async (req, res, next) => {
   }
 });
 
-router.get('/:courseId/stats', async (req, res, next) => {
+router.get("/:courseId/stats", async (req, res, next) => {
   try {
     const { courseId } = req.params;
     const stats = await coursesService.getStats({ courseId, ...req.body });
@@ -31,7 +31,7 @@ router.get('/:courseId/stats', async (req, res, next) => {
   }
 });
 
-router.put('/:courseId/stats', async (req, res, next) => {
+router.put("/:courseId/stats", async (req, res, next) => {
   try {
     const { courseId } = req.params;
     const { sub: userId } = req.user;

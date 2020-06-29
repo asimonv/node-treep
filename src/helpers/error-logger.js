@@ -1,6 +1,6 @@
 /* eslint no-console: ["error", { allow: ["log", "error"] }] */
 
-const chalk = require('chalk');
+const chalk = require("chalk");
 
 function logErrors(err, req, res, next) {
   if (err) {

@@ -2,7 +2,7 @@
 
 module.exports = {
   up(queryInterface, Sequelize) {
-    return queryInterface.createTable('CommentLinks', {
+    return queryInterface.createTable("CommentLinks", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -21,6 +21,6 @@ module.exports = {
   },
 
   down(queryInterface, Sequelize) {
-    return queryInterface.dropTable('CommentLinks');
+    return queryInterface.dropTable("CommentLinks");
   },
 };

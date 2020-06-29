@@ -21,7 +21,7 @@ module.exports = function defineComment(sequelize, DataTypes) {
     },
     {
       timestamps: true,
-    }
+    },
   );
 
   //  taken from here:

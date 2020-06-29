@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   const VoteLink = sequelize.define(
-    'VoteLink',
+    "VoteLink",
     {
       table: {
         type: DataTypes.STRING,

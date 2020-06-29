@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     ua: DataTypes.STRING,
     description: DataTypes.TEXT,
     englishName: DataTypes.TEXT,
+    factor: DataTypes.DOUBLE,
   });
 
   Course.associate = function associate(models) {

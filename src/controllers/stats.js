@@ -35,7 +35,7 @@ const getStats = async () => [
     image:
       "https://assets-ouch.icons8.com/preview/766/a6545157-1f59-4af1-81aa-fe9dc9c51709.png",
     title: "Top teológicos",
-    subtitle: "Choose the best 🙏🛐🌟",
+    subtitle: "Choose the one that suits you best 🙏🛐🌟",
     url: "teologicos",
     id: "top-teologicos",
   },

@@ -11,7 +11,7 @@ const getStats = async () => [
   {
     statType: 0,
     image:
-      "https://assets-ouch.icons8.com/preview/388/9f4d0a7d-994f-4d68-b806-33692b39a5a7.png",
+      "https://assets-ouch.icons8.com/preview/781/61f24427-f2dd-4ef8-8b50-4881e1ca5c69.png",
     title: "Top teachers",
     subtitle: "Based on a certain factor.",
     url: "teachers",
@@ -22,7 +22,7 @@ const getStats = async () => [
   {
     statType: 0,
     image:
-      "https://assets-ouch.icons8.com/preview/695/d251cbc9-cf3f-496c-a115-d6e8b8909345.png",
+      "https://assets-ouch.icons8.com/preview/388/9f4d0a7d-994f-4d68-b806-33692b39a5a7.png",
     title: "Top courses",
     subtitle: "Based on popularity, difficulty and other attributes.",
     url: "courses",

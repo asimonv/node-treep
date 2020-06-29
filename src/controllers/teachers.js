@@ -47,8 +47,8 @@ const getStats = async ({ teacherId }) => {
   return _.orderBy(mergedVotes, [x => x.meta.repr]);
 };
 
-const factorReducer = (acc, curr) => acc.value + curr.value;
-const votesReducer = (acc, curr) => acc.votes + curr.votes;
+const factorReducer = (acc, curr) => acc + curr.value;
+const votesReducer = (acc, curr) => acc + curr.votes;
 
 const upsert = async values => {
   const { action, ...withoutValue } = values;
@@ -73,8 +73,8 @@ const upsert = async values => {
 
   const votes = await getStats({ teacherId });
 
-  const reducedVotes = votes.reduce(factorReducer);
-  const votesNumber = votes.reduce(votesReducer);
+  const reducedVotes = votes.reduce(factorReducer, 0);
+  const votesNumber = votes.reduce(votesReducer, 0);
   const updatedFactor = votesNumber > 0 ? reducedVotes / votesNumber : 0;
 
   console.log(votes);

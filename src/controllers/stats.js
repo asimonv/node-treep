@@ -43,6 +43,7 @@ const getStats = async () => [
 
 const getBestTeachers = async () => {
   const teachers = db.Teacher.findAll({
+    order: [["factor", "DESC"]],
     limit: 10,
   });
   return teachers;

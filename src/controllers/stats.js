@@ -1,4 +1,4 @@
-const db = require('../models');
+const db = require("../models");
 
 // const getStats = async () => [
 //   {
@@ -10,12 +10,14 @@ const db = require('../models');
 const getStats = async () => [
   {
     statType: 0,
-    image: 'https://assets-ouch.icons8.com/preview/781/61f24427-f2dd-4ef8-8b50-4881e1ca5c69.png',
-    title: 'Top teachers',
-    subtitle: 'Based on a certain factor.',
-    url: 'teachers',
-    id: 'top-teachers',
-    description: "There's no much to say. Treep calculates which teacher is better based on his/her/etc popularity, knowledge and disposition which results in a certain factor. The higher, the better!\n\nHere are the results:",
+    image:
+      "https://assets-ouch.icons8.com/preview/781/61f24427-f2dd-4ef8-8b50-4881e1ca5c69.png",
+    title: "Top teachers",
+    subtitle: "Based on a certain factor.",
+    url: "teachers",
+    id: "top-teachers",
+    description:
+      "There's no much to say. Treep calculates which teacher is better based on his/her/etc popularity, knowledge and disposition which results in a certain factor. The higher, the better!\n\nHere are the results:",
   },
   // {
   //   statType: 0,
@@ -33,10 +35,10 @@ const getStats = async () => [
   //   url: 'teologicos',
   //   id: 'top-teologicos',
   // },
-    {
-      statType: 1,
-      title: 'More stats coming soon...',
-    },
+  {
+    statType: 1,
+    title: "More stats coming soon...",
+  },
 ];
 
 const getBestTeachers = async () => {

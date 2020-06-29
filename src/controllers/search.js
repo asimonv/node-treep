@@ -1,7 +1,7 @@
-const db = require('../models');
-const _ = require('lodash');
+const db = require("../models");
+const _ = require("lodash");
 
-const search = async (q) => {
+const search = async q => {
   let courses = await db.Course.findAll({
     where: {
       $or: [

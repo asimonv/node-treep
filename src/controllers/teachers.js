@@ -1,9 +1,15 @@
-const db = require('../models');
-const _ = require('lodash');
-const average = require('../helpers/stats');
-const getRandomEmoji = require('../helpers/emoji');
+const db = require("../models");
+const _ = require("lodash");
+const average = require("../helpers/stats");
+const getRandomEmoji = require("../helpers/emoji");
 
-const statsRepr = ['popularity', 'knowledge', 'clarity', 'demand', 'disposition'];
+const statsRepr = [
+  "popularity",
+  "knowledge",
+  "clarity",
+  "demand",
+  "disposition",
+];
 
 const getTeacher = async ({ teacherId }) => {
   const teacher = db.Teacher.findOne({
@@ -12,7 +18,7 @@ const getTeacher = async ({ teacherId }) => {
   return teacher;
 };
 
-const upsert = async (values) => {
+const upsert = async values => {
   const { action, ...withoutValue } = values;
   const { teacherId, userId, voteType } = withoutValue;
   const teacher = await getTeacher({ teacherId });
@@ -21,7 +27,7 @@ const upsert = async (values) => {
   });
 
   if (checkVote.length > 0) {
-    if (action === 'vote') {
+    if (action === "vote") {
       return checkVote.update(values);
     }
     await checkVote[0].destroy();
@@ -40,7 +46,7 @@ const sendStat = async values => upsert(values);
 const getComments = async ({ teacherId }) => {
   const teacher = await getTeacher({ teacherId });
   let comments = await teacher.getComments({
-    order: [['createdAt', 'DESC']],
+    order: [["createdAt", "DESC"]],
   });
 
   //  LOL
@@ -54,7 +60,7 @@ const getComments = async ({ teacherId }) => {
   return comments;
 };
 
-const postComment = async (data) => {
+const postComment = async data => {
   const { teacherId, text, sub: userId } = data;
   const teacher = await getTeacher({ teacherId });
   const comment = await db.Comment.create({ text, userId });
@@ -82,7 +88,7 @@ const getStats = async ({ teacherId }) => {
   }));
 
   const groupedVotes = _.chain(votes.map(x => x.toJSON()))
-    .groupBy('voteType')
+    .groupBy("voteType")
     .map((v, k) => ({
       meta: {
         repr: parseInt(k, 10),
@@ -93,7 +99,7 @@ const getStats = async ({ teacherId }) => {
     }))
     .value();
 
-  const mergedVotes = _.unionBy(groupedVotes, response, 'voteType');
+  const mergedVotes = _.unionBy(groupedVotes, response, "voteType");
   return _.orderBy(mergedVotes, [x => x.meta.repr]);
 };
 

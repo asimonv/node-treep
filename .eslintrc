@@ -5,6 +5,8 @@
   },
   "parser": "babel-eslint",
   "rules": {
-    "no-unused-vars": ["error", { "argsIgnorePattern": "next" }]
+    "no-unused-vars": ["error", { "argsIgnorePattern": "next" }],
+    "arrow-parens": ["error", "as-needed"],
+    "quotes": [2, "double", "avoid-escape"]
   }
 }

@@ -33,8 +33,8 @@ const getStats = async () => [
   {
     statType: 0,
     image:
-      "https://assets-ouch.icons8.com/preview/445/9ac0a392-3627-4f27-8024-ce999cb62017.png",
-    title: "Top theological courses",
+      "https://assets-ouch.icons8.com/preview/766/a6545157-1f59-4af1-81aa-fe9dc9c51709.png",
+    title: "Top teológicos",
     subtitle: "Choose the best 🙏🛐🌟",
     url: "teologicos",
     id: "top-teologicos",

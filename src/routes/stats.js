@@ -19,4 +19,12 @@ router.get("/courses", async (req, res) => {
   res.json(courses);
 });
 
+router.get("/teologicos", async (req, res) => {
+  const {
+    query: { filter },
+  } = req;
+  const courses = await statsService.getBestTeologicos(filter);
+  res.json(courses);
+});
+
 module.exports = router;

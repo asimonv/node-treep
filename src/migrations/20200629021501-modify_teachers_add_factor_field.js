@@ -3,7 +3,7 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.addColumn("Teachers", "factor", {
-      type: Sequelize.FLOAT,
+      type: Sequelize.DOUBLE,
       allowNull: false,
       defaultValue: 0,
     });

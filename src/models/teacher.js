@@ -1,12 +1,16 @@
 module.exports = function defineTeacher(sequelize, DataTypes) {
-  const Teacher = sequelize.define('Teacher', {
+  const Teacher = sequelize.define("Teacher", {
     name: DataTypes.STRING,
     url: DataTypes.STRING,
+    factor: DataTypes.DOUBLE,
   });
 
   Teacher.associate = function associate(models) {
     // associations can be defined here
-    Teacher.hasMany(models.TeacherCourse, { foreignKey: 'teacherId', sourceKey: 'id' });
+    Teacher.hasMany(models.TeacherCourse, {
+      foreignKey: "teacherId",
+      sourceKey: "id",
+    });
   };
 
   Teacher.prototype.toJSON = function toJSON() {

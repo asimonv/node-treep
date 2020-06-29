@@ -71,7 +71,7 @@ const upsert = async values => {
 
   // update factor
 
-  const votes = await getStats(teacherId);
+  const votes = await getStats({ teacherId });
   const reducedVotes = votes.reduce(factorReducer);
   const votesNumber = votes.reduce(votesReducer);
   const updatedFactor = reducedVotes / votesNumber;

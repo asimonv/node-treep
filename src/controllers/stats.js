@@ -38,6 +38,8 @@ const getStats = async () => [
     subtitle: "Choose the one that suits you best 🙏🛐🌟",
     url: "teologicos",
     id: "top-teologicos",
+    description:
+      "There's no much to say. Treep calculates which course is better based on a certain factor. The higher, the better!\n\nHere are the results:",
   },
   {
     statType: 1,

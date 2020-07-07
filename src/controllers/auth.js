@@ -60,12 +60,7 @@ const authUser = async ({ username, password }) => {
 };
 
 const logoutUser = async () => {
-  const options = {
-    resolveWithFullResponse: true,
-    uri: "https://intrawww.ing.puc.cl/siding/logout.phtml",
-  };
-
-  const res = await fetch.get(options);
+  const res = await fetch("https://intrawww.ing.puc.cl/siding/logout.phtml");
   console.log(chalk.bgGreen(res));
   return res;
 };

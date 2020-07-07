@@ -3,7 +3,7 @@
 require("dotenv").config();
 
 const jwt = require("jsonwebtoken");
-const request = require("request-promise").defaults({ jar: false });
+const fetch = require("node-fetch");
 const chalk = require("chalk");
 const Boom = require("@hapi/boom");
 
@@ -23,7 +23,7 @@ const authUser = async ({ username, password }) => {
     form,
   };
 
-  const res = await request.post(options);
+  const res = await fetch.post(options);
 
   const cookie = res.headers["content-length"]; // .replace("; path=/", "");
   const isValid = cookie === "3419";

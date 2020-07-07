@@ -31,10 +31,10 @@ const authUser = async ({ username, password }) => {
     options
   );
 
-  const headers = res.headers.raw();
-  console.log(headers);
+  const { headers } = res;
+  console.log(headers.get("content-length"));
 
-  const cookie = headers["content-length"]; // .replace("; path=/", "");
+  const cookie = headers.get("content-length"); // .replace("; path=/", "");
   const isValid = cookie === "3419";
 
   if (!isValid) {

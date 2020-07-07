@@ -25,7 +25,7 @@ const authUser = async ({ username, password }) => {
 
   const res = await fetch.post(options);
 
-  const cookie = res.headers["content-length"]; // .replace("; path=/", "");
+  const cookie = res.headers.raw()["content-length"]; // .replace("; path=/", "");
   const isValid = cookie === "3419";
 
   if (!isValid) {

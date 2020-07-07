@@ -17,13 +17,19 @@ const authUser = async ({ username, password }) => {
     cd: "",
   };
 
-  const options = {
-    resolveWithFullResponse: true,
-    uri: "https://intrawww.ing.puc.cl/siding/index.phtml",
-    form,
-  };
+  const params = new URLSearchParams();
+  for (const [key, value] of Object.entries(form)) {
+    params.append(key, value);
+  }
 
-  const res = await fetch.post(options);
+  const options = {
+    method: "POST",
+    body: params,
+  };
+  const res = await fetch(
+    "https://intrawww.ing.puc.cl/siding/index.phtml",
+    options
+  );
 
   const cookie = res.headers.raw()["content-length"]; // .replace("; path=/", "");
   const isValid = cookie === "3419";
@@ -56,7 +62,7 @@ const logoutUser = async () => {
     uri: "https://intrawww.ing.puc.cl/siding/logout.phtml",
   };
 
-  const res = await request.get(options);
+  const res = await fetch.get(options);
   console.log(chalk.bgGreen(res));
   return res;
 };

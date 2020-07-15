@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 
 const routes = require("./routes");
 const jwt = require("./helpers/jwt");
@@ -21,11 +22,8 @@ app.use(requestLogger);
 // use JWT auth to secure the api
 app.use(jwt());
 
-app.all("/", (req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  next();
-});
+// CORS
+app.use(cors());
 
 // Routing middleware
 app.use("/api", routes);

@@ -22,8 +22,7 @@ app.use(requestLogger);
 // use JWT auth to secure the api
 app.use(jwt());
 
-// CORS
-app.use(cors());
+app.options("*", cors()); // include before other routes
 
 // Routing middleware
 app.use("/api", routes);

@@ -1,11 +1,11 @@
-const express = require('express');
-const bodyParser = require('body-parser');
+const express = require("express");
+const bodyParser = require("body-parser");
 
-const routes = require('./routes');
-const jwt = require('./helpers/jwt');
-const errorLogger = require('./helpers/error-logger');
-const errorHandler = require('./helpers/error-handler');
-const requestLogger = require('./helpers/request-logger');
+const routes = require("./routes");
+const jwt = require("./helpers/jwt");
+const errorLogger = require("./helpers/error-logger");
+const errorHandler = require("./helpers/error-handler");
+const requestLogger = require("./helpers/request-logger");
 
 const app = express();
 
@@ -21,8 +21,14 @@ app.use(requestLogger);
 // use JWT auth to secure the api
 app.use(jwt());
 
+app.all("/", (req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+});
+
 // Routing middleware
-app.use('/api', routes);
+app.use("/api", routes);
 
 // Error logging
 app.use(errorLogger);

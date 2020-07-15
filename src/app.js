@@ -22,7 +22,12 @@ app.use(requestLogger);
 // use JWT auth to secure the api
 app.use(jwt());
 
-app.options("*", cors()); // include before other routes
+app.options(
+  "*",
+  cors({
+    origin: "http://localhost:3000",
+  })
+); // include before other routes
 
 // Routing middleware
 app.use("/api", routes);

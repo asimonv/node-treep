@@ -35,7 +35,7 @@ const authUser = async ({ username, password }) => {
   console.log(headers.get("content-length"));
 
   const cookie = headers.get("content-length"); // .replace("; path=/", "");
-  const isValid = cookie === "3419";
+  const isValid = cookie === "6691";
 
   if (!isValid) {
     throw Boom.unauthorized("Wrong email-password combination");
